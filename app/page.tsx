@@ -34,18 +34,18 @@ function TagInput({ label, placeholder, values, onChange }: TagInputProps) {
   }, [input, values, onChange]);
 
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      <div className="flex flex-wrap gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+    <div className="flex flex-col gap-3">
+      <label className="text-black font-semibold text-black-800">{label}</label>
+      <div className="flex flex-wrap gap-3 rounded-xl border-2 border-gray-200 bg-white px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-colors">
         {values.map((v) => (
           <span
             key={v}
-            className="inline-flex items-center gap-2 rounded-full bg-blue-50 text-blue-700 px-3 py-1 text-sm"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 text-sm font-medium shadow-sm"
           >
             {v}
             <button
               type="button"
-              className="text-blue-600 hover:text-blue-800"
+              className="text-white hover:text-blue-100 transition-colors"
               onClick={() => onChange(values.filter((x) => x !== v))}
               aria-label={`Remove ${v}`}
             >
@@ -54,7 +54,7 @@ function TagInput({ label, placeholder, values, onChange }: TagInputProps) {
           </span>
         ))}
         <input
-          className="flex-1 min-w-[160px] outline-none text-sm py-1"
+          className="flex-1 min-w-[200px] outline-none text-black py-1 placeholder-gray-500"
           placeholder={placeholder}
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -68,7 +68,9 @@ function TagInput({ label, placeholder, values, onChange }: TagInputProps) {
         />
       </div>
       {!values.every(isValidEmail) && (
-        <p className="text-xs text-red-600">One or more emails are invalid.</p>
+        <p className="text-sm text-red-600 font-medium">
+          One or more emails are invalid.
+        </p>
       )}
     </div>
   );
@@ -92,7 +94,7 @@ export default function Home() {
     editorProps: {
       attributes: {
         class:
-          "min-h-[160px] prose max-w-none focus:outline-none p-3 rounded-md bg-white border border-gray-200",
+          "min-h-[200px] prose max-w-none focus:outline-none text-black leading-relaxed text-black-800",
       },
     },
   });
@@ -147,38 +149,38 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4">
-      <div className="mx-auto max-w-3xl">
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 p-6 sm:p-8">
-          <h1 className="text-2xl font-semibold text-gray-900 mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-4">
+      <div className="mx-auto max-w-4xl">
+        <div className="rounded-2xl bg-white shadow-xl ring-1 ring-gray-200 p-8 sm:p-10">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Send Referral Email
           </h1>
           <form onSubmit={onSubmit} className="space-y-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-gray-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-3">
+                <label className="text-black font-semibold text-black-800">
                   From
                 </label>
                 <input
                   type="email"
-                  className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="you@example.com"
                   value={from}
                   onChange={(e) => setFrom(e.target.value)}
                 />
                 {from && !isValidEmail(from) && (
-                  <p className="text-xs text-red-600">
+                  <p className="text-sm text-red-600 font-medium">
                     Enter a valid sender email.
                   </p>
                 )}
               </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-gray-700">
+              <div className="flex flex-col gap-3">
+                <label className="text-black font-semibold text-black-800">
                   Subject
                 </label>
                 <input
                   type="text"
-                  className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="Subject"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
@@ -186,54 +188,60 @@ export default function Home() {
               </div>
             </div>
 
-            <TagInput
-              label="To"
-              placeholder="Add recipient and press Enter"
-              values={to}
-              onChange={setTo}
-            />
+            <div className="space-y-3">
+              <TagInput
+                label="To"
+                placeholder="Add recipient and press Enter"
+                values={to}
+                onChange={setTo}
+              />
+            </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700">Body</label>
-              <div className="rounded-lg border border-gray-200 bg-white">
-                <div className="flex gap-2 border-b border-gray-200 p-2">
+            <div className="flex flex-col gap-3">
+              <label className="text-black font-semibold text-black-800">
+                Body
+              </label>
+              <div className="rounded-xl border-2 border-gray-200 bg-white overflow-hidden">
+                <div className="flex gap-3 border-b-2 border-gray-200 p-4 bg-gray-50">
                   <button
                     type="button"
-                    className="text-sm px-2 py-1 rounded hover:bg-gray-100"
+                    className="text-sm px-4 py-2 rounded-lg hover:bg-blue-100 hover:text-blue-700 font-medium transition-colors"
                     onClick={() => editor?.chain().focus().toggleBold().run()}
                   >
-                    Bold
+                    <strong>B</strong>
                   </button>
                   <button
                     type="button"
-                    className="text-sm px-2 py-1 rounded hover:bg-gray-100"
+                    className="text-sm px-4 py-2 rounded-lg hover:bg-blue-100 hover:text-blue-700 font-medium transition-colors"
                     onClick={() => editor?.chain().focus().toggleItalic().run()}
                   >
-                    Italic
+                    <em>I</em>
                   </button>
                   <button
                     type="button"
-                    className="text-sm px-2 py-1 rounded hover:bg-gray-100"
+                    className="text-sm px-4 py-2 rounded-lg hover:bg-blue-100 hover:text-blue-700 font-medium transition-colors"
                     onClick={() =>
                       editor?.chain().focus().toggleBulletList().run()
                     }
                   >
-                    Bulleted List
+                    • List
                   </button>
                 </div>
-                <EditorContent editor={editor} />
+                <div className="p-4">
+                  <EditorContent editor={editor} />
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700">
+            <div className="flex flex-col gap-3">
+              <label className="text-black font-semibold text-black-800">
                 Attachments
               </label>
               <input
                 ref={fileInputRef}
                 type="file"
                 multiple
-                className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none"
+                className="rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
               />
             </div>
 
@@ -241,21 +249,21 @@ export default function Home() {
               <div
                 className={
                   status.type === "success"
-                    ? "text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2"
-                    : "text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2"
+                    ? "text-black text-green-800 bg-green-100 border-2 border-green-300 rounded-xl px-4 py-3 font-medium"
+                    : "text-black text-red-800 bg-red-100 border-2 border-red-300 rounded-xl px-4 py-3 font-medium"
                 }
               >
                 {status.message}
               </div>
             )}
 
-            <div className="flex items-center justify-end gap-3 pt-2">
+            <div className="flex items-center justify-end gap-4 pt-6">
               <button
                 type="submit"
                 disabled={!canSubmit || isSending}
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 text-white px-4 py-2 text-sm font-medium shadow-sm hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 text-lg font-bold shadow-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-60 disabled:cursor-not-allowed transition-all transform hover:scale-105"
               >
-                {isSending ? "Sending…" : "Send Email"}
+                {isSending ? "Sending…" : "Send Referral Email"}
               </button>
             </div>
           </form>
